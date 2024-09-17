@@ -1,0 +1,95 @@
+This Python code implements a simple image encryption and decryption tool using pixel manipulation. Here's an explanation of each part of the code:
+
+1. Importing the PIL (Pillow) Library
+python
+-------------------------------------------------
+from PIL import Image
+-------------------------------------------------
+Pillow is a Python imaging library used for opening, manipulating, and saving images.
+The Image module is used to load images from files and perform operations on them.
+2. encrypt_image Function
+python
+-------------------------------------------------
+def encrypt_image(input_path, output_path, key):
+    img = Image.open(input_path)  # Open the image file
+    pixels = img.load()  # Load the pixel data from the image
+
+    width, height = img.size  # Get image dimensions
+
+    # Loop through each pixel in the image
+    for i in range(width):
+        for j in range(height):
+            r, g, b = pixels[i, j]  # Get the RGB values of the current pixel
+
+            # Encrypt by swapping red (r) and blue (b) channels
+            encrypted_pixel = (b, g, r)
+
+            pixels[i, j] = encrypted_pixel  # Update the pixel with encrypted values
+
+    img.save(output_path)  # Save the modified (encrypted) image to the output path
+    print("Image encrypted successfully!")
+---------------------------------------------------------------------
+How It Works:
+Input: Takes an image from input_path, manipulates the pixels by swapping the Red and Blue channels, and saves the new image to output_path.
+Pixel Manipulation: For each pixel in the image:
+The function reads the RGB values (r, g, b).
+It swaps the Red (r) and Blue (b) values, while keeping Green (g) unchanged.
+It assigns the modified pixel values back to the image.
+Saving: The encrypted image is then saved at the specified output_path.
+-----------------------------------------------------------------------
+3. decrypt_image Function
+
+def decrypt_image(input_path, output_path, key):
+    img = Image.open(input_path)
+    pixels = img.load()
+
+    width, height = img.size
+
+    for i in range(width):
+        for j in range(height):
+            r, g, b = pixels[i, j]  # Get the RGB values of the encrypted pixel
+
+            # Decrypt by swapping blue (b) and red (r) channels back to original
+            decrypted_pixel = (b, g, r)
+
+            pixels[i, j] = decrypted_pixel  # Replace with decrypted pixel
+
+    img.save(output_path)
+    print("Image decrypted successfully!")
+________________________________________________________________________________
+How It Works:
+Input: Takes the encrypted image from input_path, reverses the pixel manipulation (swapping Red and Blue back), and saves the decrypted image to output_path.
+Pixel Manipulation (Reverse Operation): For each pixel:
+The function reads the modified (encrypted) RGB values.
+It swaps the Blue (b) and Red (r) values back to their original positions.
+Saving: The decrypted image is saved at the output_path.
+____________________________________________________________________________________
+4. Defining Paths for Input, Encrypted, and Decrypted Images
+
+# Define image paths
+input_image = r"C:\Users\nisha\OneDrive\Desktop\vscode\th.jpg"
+encrypted_image = r"C:\Users\nisha\OneDrive\Desktop\vscode\decryt.jpg"
+decrypted_image = r"C:\Users\nisha\OneDrive\Desktop\vscode\encrypt.jpg"
+_____________________________________________________________________________________
+The file paths for the input image, the encrypted image, and the decrypted image are specified.
+Ensure these paths point to valid locations on your system.
+_____________________________________________________________________________________
+5. Encrypting and Decrypting the Image
+
+# Encrypt the image
+encrypt_image(input_image, encrypted_image, key=None)
+
+# Decrypt the image
+decrypt_image(encrypted_image, decrypted_image, key=None)
+Encryption: The encrypt_image function is called, which takes the input_image, processes it, and saves the encrypted result to encrypted_image.
+Decryption: The decrypt_image function is then called with the encrypted_image to reverse the encryption process and save the decrypted image to decrypted_image.
+______________________________________________________________________________________________________
+Key Points to Note:
+Pixel Manipulation: The code encrypts the image by simply swapping the Red and Blue channels of each pixel, and decrypts by reversing this process.
+Simplicity: This is a very basic form of encryption and is not secure for actual cryptographic use. It’s more of a learning exercise in pixel manipulation.
+Key: The key argument is not used in this implementation, but it is kept in the function signatures for potential future use, where a more advanced encryption method could be applied (e.g., using XOR or other encryption algorithms).
+Improvements and Extensions:
+Stronger Encryption: You could introduce a stronger form of encryption, such as applying an XOR operation with a numeric key to each pixel value.
+Use of Key: You can implement encryption that requires a key, adding an extra layer of security.
+Handling Different Image Formats: Ensure the code works with multiple image formats (e.g., JPEG, PNG) and handle exceptions if a format isn’t supported.
+This example provides a simple image encryption/decryption tool through pixel manipulation, demonstrating how basic encryption methods can be applied to image data.
