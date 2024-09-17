@@ -1,0 +1,6 @@
+Git clone https://github.com/kpnishandh/PRODIGY_CS_02.git
+
+cd PRODIGY_CS_02
+use python3 command to run the script in the terminal
+> python3 PRODIGY_CS_02.py
+     #THE MESSAGE WILL ENCRYPT OR DECRYPT image
